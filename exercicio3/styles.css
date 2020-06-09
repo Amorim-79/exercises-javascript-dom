@@ -1,0 +1,33 @@
+body {
+    font-family: ubuntu;
+    background: #2974cacc;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#main {
+    width: 400px;
+
+    background: #FFF;
+    border-radius: 6px;
+
+    padding: 20px;
+}
+
+#main button {
+    background: #CCC;
+
+    border: 0;
+    border-radius: 8px;
+    padding: 8px;
+
+    cursor: pointer;
+}

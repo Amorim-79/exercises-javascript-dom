@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    background: #11a793;
+
+    font-family: ubuntu;
+}
+
+h1 {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#main {
+    background: #FFF;
+
+    width: 600px;
+
+    padding: 20px;
+
+}
+
+input {
+    margin: 5px;
+    
+}
+
+button {
+    height: 30px;
+
+    background: #333;
+    color: #FFF;
+
+    border: 0;
+    border-radius: 6px;
+    
+    cursor: pointer;
+}
+
+#result {
+    margin-top: 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#result p {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#result img {
+    width: 350px;
+   height: 300px;
+
+    border-radius: 50%;
+}

@@ -1,0 +1,25 @@
+body {
+    font-family: ubuntu;
+    background-color: #2974cacc;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    flex-basis: 100%;
+    text-align: center;
+}
+
+#main {
+    width: 450px;
+    background: #FFF;
+
+    padding: 20px;
+}
+
+select {
+    width: 150px;
+}
