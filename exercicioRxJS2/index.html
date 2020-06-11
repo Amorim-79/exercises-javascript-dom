@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://unpkg.com/@reactivex/rxjs@6.3.3/dist/global/rxjs.umd.js"></script>
+    <title>AutoComplete</title>
+
+    <style>
+        body {
+            background: #E02041;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content {
+            background: #CCC;
+            width: 600px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;      
+            justify-content: center;
+
+            margin-top: 300px;
+        }
+
+        ul {
+            width: 250px;
+            height: 250px;
+            overflow-y: scroll;
+        }
+
+        ul li {
+            background: #FFF;
+            list-style: none;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <input type="text" placeholder="Pais...">
+        <ul></ul>
+    </div>
+
+    <script>
+        const { fromEvent, ajax: { ajax }, of } = rxjs
+        const { pluck, map, debounceTime, switchMap, catchError, distinctUntilChanged, startWith } = rxjs.operators
+
+        const input = fromEvent(document.querySelector("input"), 'input')
+        const ul = document.querySelector("ul")
+
+        const mostraResultado = res => {
+            ul.innerHTML = res.map(e => `<li>${e}</li>`).join('')
+        }
+
+        const buscaPaisesNaApi = termo => ajax(`https://restcountries.eu/rest/v2/name/${termo}?fields=name`).pipe(
+            pluck('response'),
+            map(resposta => resposta.map(e => e.name))
+        )
+
+        input.pipe(
+            debounceTime(300),
+            pluck('target', 'value'),
+            map(e => e.trim()),
+            distinctUntilChanged(),
+            switchMap(termo => {
+                if (!termo || termo.length < 3) return of([])
+                return buscaPaisesNaApi(termo)
+                }),
+            catchError((err, source) => {
+                return source.pipe(
+                    startWith([])
+                )
+            })
+        )
+            .subscribe(mostraResultado)
+    </script>
+</body>
+
+</html>
